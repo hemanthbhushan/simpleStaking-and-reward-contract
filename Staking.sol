@@ -50,7 +50,7 @@ contract Staking1{
         require(token == erc20Staking,"wrong ERC20 token");
        IERC20 reward = IERC20(erc20reward);
        token.safeTransferFrom(address(this),msg.sender,stakedAmount[msg.sender]);
-       reward.safeTransferFrom(address(this),msg.sender,stakedAmount[msg.sender]);
+       reward.safeTransferFrom(address(this),msg.sender,rewardOfferedt[msg.sender]);
        balanceOfstaked1  = balanceCheck(token);
        balanceOfReward1 = balanceCheck(reward);
 
