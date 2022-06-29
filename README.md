@@ -1,0 +1,2 @@
+# simpleStaking-and-reward-contract
+
