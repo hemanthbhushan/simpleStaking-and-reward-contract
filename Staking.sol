@@ -30,11 +30,12 @@ contract Staking1{
     function stakeToken(IERC20 token,uint amount) external{
         require(token == erc20Staking,"wrong ERC20 token");
         require(amount>0,"amount cant be less than zero");
-         IERC20 reward = IERC20(erc20reward);
+        IERC20 reward = IERC20(erc20reward);
         token.safeTransferFrom(msg.sender,address(this),amount);
 
         
-        
+        stakedAmount[msg.sender] = amount;
+        rewardOffered[msg.sender] = amount;
 
         balanceOfcontract += stakedAmount[msg.sender]; 
 
@@ -43,15 +44,14 @@ contract Staking1{
         balanceOfStaked =  balanceCheck(token);
        
         
-        stakedAmount[msg.sender] = amount;
-        rewardOffered[msg.sender] = amount;
+        
     } 
     function unStake(IERC20 token) external {
         require(token == erc20Staking,"wrong ERC20 token");
        IERC20 reward = IERC20(erc20reward);
        balanceOfcontract -= stakedAmount[msg.sender];
-       token.safeTransfer(msg.sender,stakedAmount[msg.sender]);
-       reward.safeTransfer(msg.sender,rewardOfferedt[msg.sender]);
+       token.safeTransferFrom(address(this),msg.sender,stakedAmount[msg.sender]);
+       reward.safeTransferFrom(address(this),msg.sender,rewardOffered[msg.sender]);
        
        
        balanceOfstaked1  = balanceCheck(token);
